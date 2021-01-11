@@ -6,7 +6,7 @@ import java.util.List;
 public class LengthOfLongestSubstring {
 
     public static void main(String[] args) {
-        String str = " ";
+        String str = "abcabcbb";
         int length = lengthOfLongestSubstring(str);
         System.out.println("max length "+length);
 
