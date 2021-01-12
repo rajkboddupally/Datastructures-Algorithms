@@ -43,7 +43,7 @@ public class AddTwoNumbers {
          */
     }
 
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbers_V1(ListNode l1, ListNode l2) {
         ListNode output = new ListNode();
         ListNode head = output;
         boolean pass = false;
@@ -77,10 +77,30 @@ public class AddTwoNumbers {
         if (pass)
             output.next = new ListNode(1);
         output = head.next;
-        while(output != null){
-            System.out.print(output.val);
+
+        return output;
+    }
+
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode output = new ListNode();
+        ListNode head = output;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int x = l1 != null ? l1.val : 0;
+            int y = l2 != null ? l2.val : 0;
+            int sum = carry + x + y;
+            output.next = new ListNode(sum % 10);
+            carry = sum / 10;
             output = output.next;
+            if (l1 != null)
+                l1 = l1.next;
+            if (l2 != null)
+                l2 = l2.next;
         }
+        if (carry > 0) {
+            output.next = new ListNode(carry);
+        }
+        output = head.next;
         return output;
     }
 }
