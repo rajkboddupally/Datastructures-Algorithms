@@ -2,7 +2,7 @@ package string;
 
 public class ImplementStrStr {
 
-    public int strStr(String haystack, String needle) {
+    public int strStr_V1(String haystack, String needle) {
         int index = -1;
 
         if (needle.equals(""))
@@ -35,4 +35,27 @@ public class ImplementStrStr {
 
     }
 
+    public int strStr(String haystack, String needle) {
+        int index = -1;
+
+        if (needle.equals(""))
+            return 0;
+
+        if (needle.length() > haystack.length())
+            return -1;
+
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            int j = 0;
+            while (j < needle.length()) {
+                if (needle.charAt(j) != haystack.charAt(i + j)) {
+                    break;
+                }
+                j++;
+                if (j == needle.length()) {
+                    return i;
+                }
+            }
+        }
+        return index;
+    }
 }
