@@ -50,7 +50,7 @@ public class LongestPalindromicSubstring {
         for (int i = 0; i < s.length(); i++) {
             int stringStartIndex = i;
             int stringEndIndex = s.length() - 1;
-            if(longestPalindrome.length() > stringEndIndex-stringStartIndex)
+            if (longestPalindrome.length() > stringEndIndex - stringStartIndex)
                 break;
             while (stringStartIndex <= stringEndIndex) {
                 boolean isPalindrome = false;
