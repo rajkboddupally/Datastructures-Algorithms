@@ -1,11 +1,9 @@
 package arrays;
 
-import java.util.Arrays;
-
 public class CanFormArray {
     public static void main(String[] args) {
         int[] arr = {12, 21, 11, 22};
-        int[][] pieces = {{12, 21}, {1, 2}};
+        int[][] pieces = {{12, 21}, {11, 22}};
         CanFormArray r = new CanFormArray();
         System.out.println(r.canFormArray(arr, pieces));
 
@@ -35,8 +33,7 @@ public class CanFormArray {
                     output = false;
                 }
             }
-            if (!output)
-                break outerloop;
+
         }
         return output;
     }

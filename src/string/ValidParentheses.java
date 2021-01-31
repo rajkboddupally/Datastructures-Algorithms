@@ -57,4 +57,22 @@ public class ValidParentheses {
         }
         return stack.isEmpty();
     }
+
+
+    public boolean isValid1(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '[')
+                stack.add(']');
+            else if (s.charAt(i) == '{')
+                stack.add('}');
+            else if (s.charAt(i) == '(')
+                stack.add(')');
+            else if (stack.isEmpty() || stack.pop() != s.charAt(i)) {
+                return false;
+            }
+        }
+        return stack.isEmpty();
+    }
 }

@@ -64,9 +64,11 @@ public class BoatstoSavePeople {
     public int numRescueBoats(int[] people, int limit) {
         int rescueBoats = 0;
         Arrays.sort(people);
-        int startIndex = 0, endIndex = people.length - 1;
-        while (startIndex <= endIndex) {
-            if (people[startIndex] + people[endIndex] <= limit) {
+        int startIndex = 0;
+        int endIndex = people.length - 1;
+
+        while(startIndex <= endIndex){
+            if(people[startIndex] + people[endIndex] <= limit){
                 startIndex++;
             }
             endIndex--;
