@@ -42,28 +42,26 @@ public class ZigZagConversion {
 
     public String convert(String s, int numRows) {
         char[] charArr = s.toCharArray();
-        int len = charArr.length;
         StringBuilder[] sb = new StringBuilder[numRows];
 
         for (int i = 0; i < numRows; i++) {
             sb[i] = new StringBuilder();
         }
-
         int i = 0;
+        while (i < charArr.length) {
 
-        while (i < len) {
-            //go vertically first
-            for (int idx = 0; idx < numRows && i < len; idx++) {
-                sb[idx].append(charArr[i++]);
+            for (int index = 0; index < numRows && i < charArr.length; index++) {
+                sb[index].append(charArr[i++]);
             }
-            //go obliquely from down to up
-            for (int idx = numRows - 2; idx >= 1 && i < len; idx--) {
-                sb[idx].append(charArr[i++]);
+
+            for (int index = numRows - 2; index > 0 && i < charArr.length; index--) {
+                sb[index].append(charArr[i++]);
             }
+
         }
 
-        for (int j = 1; j < numRows; j++) {
-            sb[0].append(sb[j]);
+        for (int k = 1; k < sb.length; k++) {
+            sb[0].append(sb[k]);
         }
         return sb[0].toString();
     }
