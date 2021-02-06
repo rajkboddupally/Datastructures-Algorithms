@@ -61,7 +61,7 @@ public class BestTimetoBuyandSellStockII {
         return tempProfit;
     }
 
-    public int maxProfit_V1(int[] prices) {
+    public int maxProfit_V10(int[] prices) {
         int maxProfit = 0;
         int buy = 0;
         int sell = 0;
