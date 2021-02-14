@@ -34,27 +34,45 @@ public class ThreeSum {
 
         Arrays.sort(nums);
 
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length - 1; i++) {
 
             int startIndex = i + 1;
             int endIndex = nums.length - 1;
+
             while (startIndex < endIndex) {
-                List<Integer> subLists = new ArrayList<>();
-                int tempSum = nums[startIndex] + nums[endIndex] + nums[i];
-                if (tempSum == 0) {
-                    subLists.add(nums[i]);
-                    subLists.add(nums[startIndex]);
-                    subLists.add(nums[endIndex]);
-                    list.add(subLists);
-
+                int sum = nums[i] + nums[startIndex] + nums[endIndex];
+                if (sum > 0) {
+                    endIndex--;
+                } else if (sum < 0) {
                     startIndex++;
-                    endIndex--;
-                } else if (tempSum > 0) {
-                    endIndex--;
                 } else {
+                    list.add(Arrays.asList(nums[i], nums[startIndex], nums[endIndex]));
                     startIndex++;
+                    endIndex--;
                 }
+            }
 
+
+        }
+        return new ArrayList<>(list);
+    }
+
+    //n2logn
+    public List<List<Integer>> threeSumBinarySearch(int[] nums) {
+
+        if (nums.length < 3)
+            throw new IllegalArgumentException("Array length should be at least 3");
+
+        Set<List<Integer>> list = new HashSet<>();
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                int k = Arrays.binarySearch(nums, j + 1, nums.length, -(nums[i] + nums[j]));
+                if (k > -1) {
+                    list.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                }
             }
         }
         return new ArrayList<>(list);

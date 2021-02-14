@@ -1,4 +1,4 @@
-package thread;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class FutureExample {
             result.add(service.submit(myCallable));
         }
 
-        for(Future future:result){
+        for (Future future : result) {
             System.out.println(future.get());
         }
     }
