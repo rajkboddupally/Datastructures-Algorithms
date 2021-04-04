@@ -9,6 +9,7 @@ public class DynamicArray {
     public DynamicArray(int capacity) {
         this.capacity = capacity;
         arr = new int[capacity];
+        
     }
 
     public void add(int element) {
