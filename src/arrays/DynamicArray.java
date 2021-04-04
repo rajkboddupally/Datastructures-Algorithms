@@ -2,40 +2,47 @@ package arrays;
 
 public class DynamicArray {
 
+    private int[] arr;
+    private int size;
+    private int capacity;
+
+    public DynamicArray(int capacity) {
+        this.capacity = capacity;
+        arr = new int[capacity];
+    }
+
+    public void add(int element) {
+        if (size == capacity) {
+            increment(2 * capacity);
+        }
+        arr[size++] = element;
+    }
+
+    private void increment(int newCapacity) {
+        int[] newArr = new int[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+        arr = newArr;
+        capacity = newCapacity;
+    }
+
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
+        DynamicArray d = new DynamicArray(1);
+        d.add(2);
+        d.add(3);
+        d.add(4);
+        d.add(5);
+        d.add(6);
+        d.print();
+
+        System.out.println(d.size + " - " + d.capacity);
 
     }
-
-    private static class DynamicArrayEx {
-        private int[] arr;
-        private int size;
-        private int capacity;
-
-        public DynamicArrayEx(int size) {
-            arr = new int[2];
-            this.capacity = 2;
-        }
-
-        public void add(int num) {
-            if (size == capacity) {
-                increaseCapacity(2);
-            }
-            arr[size] = num;
-            size++;
-        }
-
-        private void increaseCapacity(int i) {
-            int[] newArr = new int[capacity * 2];
-            for (int j = 0; j < arr.length; j++)
-                newArr[j] = arr[j];
-
-            arr = newArr;
-
-            capacity = capacity * 2;
-
-        }
-
-    }
-
 }
