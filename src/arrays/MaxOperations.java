@@ -56,4 +56,24 @@ public class MaxOperations {
         }
         return maxOperations;
     }
+
+
+    int maxOperations_NotOptimized(int[] nums, int k) {
+
+        int maxOperations = 0;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] == Integer.MIN_VALUE) continue;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] == Integer.MIN_VALUE) continue;
+                if (k == nums[i] + nums[j]) {
+                    maxOperations++;
+                    nums[i] = Integer.MIN_VALUE;
+                    nums[j] = Integer.MIN_VALUE;
+                }
+            }
+        }
+
+        return maxOperations;
+    }
 }

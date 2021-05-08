@@ -37,10 +37,14 @@ public class FindKthLargest {
             elements.add(nums[i]);
         }
 
-        while(k > 1){
+        while (k > 1) {
             elements.poll();
             k--;
         }
-        return elements.poll();
+        int element = 0;
+        if (elements.peek() != null) {
+            element = elements.poll();
+        }
+        return element;
     }
 }

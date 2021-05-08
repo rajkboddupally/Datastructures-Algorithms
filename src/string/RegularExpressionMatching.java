@@ -43,33 +43,45 @@ s contains only lowercase English letters.
 p contains only lowercase English letters, '.', and '*'.
 It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
  */
+
+/*Cases
+
+Take each character from s.
+1.  If it is a match with p... increment both p and s
+2.  If it a ...   increment both p and s
+3.  If it is character not matching.. then check next p. if it is *.. proceed
+4.  If it is character not matching... next is not *...  return false.
+
+ */
+
 public class RegularExpressionMatching {
 
     public boolean isMatch(String s, String p) {
 
         char[] sArr = s.toCharArray();
         char[] pArr = p.toCharArray();
-        int pIndex = 0;
-        boolean isMatch = false;
+        int sIndex = 0, pIndex = 0;
 
-        for (int i = 0; i < sArr.length; i++) {
-            if (pArr[pIndex] == '.' || sArr[i] == pArr[pIndex]) {
+        while (sIndex < sArr.length && pIndex < pArr.length) {
+            if (sArr[sIndex] == pArr[pIndex] || pArr[pIndex] == '.') {
+                sIndex++;
                 pIndex++;
-            } else if (pArr[pIndex] == '*' && ((pIndex > 0) && (pArr[pIndex - 1] == sArr[i] || pArr[pIndex - 1] == '.'))) {
-            } else if (pArr[pIndex + 1] == sArr[i]) {
-                pIndex=i;
+            } else if (pArr[pIndex] == '*') {
+                char pChar = pArr[pIndex - 1];
+                while (sIndex < sArr.length && (sArr[sIndex] == pChar || pChar == '.')) {
+                    sIndex++;
+                }
+                pIndex++;
+                if (pIndex < pArr.length && pArr[pIndex] == pChar) {
+                    pIndex++;
+                }
+            } else if (sArr[sIndex] != pArr[pIndex] && (pIndex < pArr.length - 1) && pArr[pIndex + 1] == '*') {
+                pIndex = pIndex + 2;
             } else {
-                pIndex++;
-                i--;
-            }
-
-            if (pIndex > pArr.length - 1)
                 return false;
+            }
         }
-        if (pIndex == pArr.length - 1) {
-            isMatch = true;
-        }
-        return isMatch;
+        return sIndex == sArr.length && pIndex == pArr.length;
     }
 
 }
