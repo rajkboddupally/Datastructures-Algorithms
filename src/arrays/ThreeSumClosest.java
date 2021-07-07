@@ -1,26 +1,29 @@
 package arrays;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class ThreeSumClosest {
     public int threeSumClosest(int[] nums, int target) {
-        Map<Integer, Integer> mymap = new TreeMap<>();
-        Arrays.sort(nums);
-
-        for (int i = 0; i < nums.length; i++) {
-
-            int startIndex = i + 1;
-            int endIndex = nums.length - 1;
-
-            while (startIndex < endIndex) {
-                int temp = nums[startIndex] + nums[endIndex] + nums[i];
-                mymap.put(Math.abs(target - temp), temp);
-                startIndex++;
+        Set<Integer> elements = new HashSet<>();
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    elements.add(nums[i] + nums[j] + nums[k]);
+                }
             }
-
         }
 
-        return mymap.get(0) == null ? 0 : mymap.get(0);
+        int minDiff = Integer.MAX_VALUE;
+        Map<Integer, Integer> sortedKeyMap = new TreeMap<>();
+        for (int key : elements) {
+            minDiff = Math.abs(key - target);
+            sortedKeyMap.put(minDiff, key);
+        }
 
+        Map.Entry<Integer, Integer> entry = sortedKeyMap.entrySet().iterator().next();
+        return entry.getValue();
     }
 }
