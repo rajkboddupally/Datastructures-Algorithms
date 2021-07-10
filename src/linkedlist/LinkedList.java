@@ -30,6 +30,14 @@ public class LinkedList {
         Node node6 = new Node(100);
         linkedList.addLast(node6);
         linkedList.printList();
+
+        System.out.println("REMOVE NODE 30 ");
+        linkedList.delete(node3);
+        linkedList.printList();
+
+        System.out.println("REMOVE NODE 5 ");
+        linkedList.delete(node4);
+        linkedList.printList();
     }
 
     public void printList() {
@@ -49,13 +57,6 @@ public class LinkedList {
 
     //2) After a given node.
     public void add(Node newNode, Node givenNode) {
-       /*
-        if (givenNode != null) {
-            Node node = givenNode.next;
-            givenNode.next = newNode;
-            newNode.next = node;
-        }
-        */
 
         assert givenNode != null;
         newNode.next = givenNode.next;
@@ -75,6 +76,24 @@ public class LinkedList {
         }
         node.next = newNode;
         newNode.next = null;
+    }
+
+    //4. Delete a given node
+    public void delete(Node givenNode) {
+        Node node = head;
+
+        //if head itself the givenNode
+        if (head == givenNode) {
+            head = head.next;
+            return;
+        }
+
+        while (node != null && node.next != givenNode) {
+            node = node.next;
+        }
+
+        assert node != null;
+        node.next = givenNode.next;
     }
 
     static class Node {

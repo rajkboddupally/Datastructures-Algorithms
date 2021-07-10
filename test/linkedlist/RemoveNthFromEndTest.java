@@ -18,7 +18,6 @@ class RemoveNthFromEndTest {
             System.out.println(output.val + " -> ");
             output = output.next;
         }
-
     }
 
     @Test
@@ -39,7 +38,7 @@ class RemoveNthFromEndTest {
         ListNode head = new ListNode(1);
         head.next = new ListNode(2);
 
-        ListNode output = removeNthFromEnd.removeNthFromEnd(head, 1);
+        ListNode output = removeNthFromEnd.removeNthFromEnd(head, 2);
         while (output != null) {
             System.out.println(output.val + " -> ");
             output = output.next;
