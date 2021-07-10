@@ -1,7 +1,7 @@
 package linkedlist;
 
 public class RemoveNthFromEnd {
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
         ListNode i = head, j = head;
         ListNode output = i;
         int length = 1;
@@ -30,5 +30,18 @@ public class RemoveNthFromEnd {
             i.next = i.next.next;
         }
         return output;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode ptr = head;
+        ListNode reverseLLHead = null;
+
+        //Reverse LinkedList
+
+        while (ptr != null) {
+            reverseLLHead = new ListNode(ptr.val);
+            ptr = ptr.next;
+        }
+        return reverseLLHead;
     }
 }
