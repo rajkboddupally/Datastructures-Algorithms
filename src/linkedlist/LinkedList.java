@@ -49,23 +49,32 @@ public class LinkedList {
 
     //2) After a given node.
     public void add(Node newNode, Node givenNode) {
+       /*
         if (givenNode != null) {
             Node node = givenNode.next;
             givenNode.next = newNode;
             newNode.next = node;
         }
+        */
+
+        assert givenNode != null;
+        newNode.next = givenNode.next;
+        givenNode.next = newNode;
+
     }
 
     //3) At the end of the linked list.
     public void addLast(Node newNode) {
+        if (head == null) {
+            head = newNode;
+            return;
+        }
         Node node = head;
-        while (node != null && node.next != null) {
+        while (node.next != null) {
             node = node.next;
         }
-        if (node != null) {
-            node.next = newNode;
-            newNode.next = null;
-        }
+        node.next = newNode;
+        newNode.next = null;
     }
 
     static class Node {
