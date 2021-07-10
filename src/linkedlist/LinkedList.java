@@ -49,9 +49,11 @@ public class LinkedList {
 
     //2) After a given node.
     public void add(Node newNode, Node givenNode) {
-        Node node = givenNode.next;
-        givenNode.next = newNode;
-        newNode.next = node;
+        if (givenNode != null) {
+            Node node = givenNode.next;
+            givenNode.next = newNode;
+            newNode.next = node;
+        }
     }
 
     //3) At the end of the linked list.
@@ -60,8 +62,10 @@ public class LinkedList {
         while (node != null && node.next != null) {
             node = node.next;
         }
-        node.next = newNode;
-        newNode.next = null;
+        if (node != null) {
+            node.next = newNode;
+            newNode.next = null;
+        }
     }
 
     static class Node {
