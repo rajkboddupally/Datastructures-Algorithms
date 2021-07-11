@@ -156,7 +156,8 @@ public class LinkedList {
             node.next = null;
             return;
         }
-        node.next = node.next.next;
+        if (node.next != null)
+            node.next = node.next.next;
     }
 
     //compute length recursively
