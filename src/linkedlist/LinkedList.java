@@ -47,6 +47,30 @@ public class LinkedList {
         System.out.println("REMOVE AT POSITION 0");
         linkedList.deleteAtPosition(0);
         linkedList.printList();
+
+        System.out.println("Compute length recursively " + linkedList.computeLengthRecursively());
+        System.out.println("Compute length iteratively " + linkedList.computeLengthIteratively());
+
+        Node node7 = new Node(30);
+        Node node8 = new Node(40);
+        Node node9 = new Node(50);
+        Node node300 = new Node(300);
+        linkedList.addLast(node7);
+        linkedList.addLast(node8);
+        linkedList.addLast(node9);
+        linkedList.printList();
+
+        System.out.println("search recursively for node 30 " + linkedList.searchRecursively(node7));
+        System.out.println("search recursively for node 300 " + linkedList.searchRecursively(node300));
+
+        System.out.println("search iteratively for node 30 " + linkedList.searchIteratively(node7));
+        System.out.println("search iteratively for node 300 " + linkedList.searchIteratively(node300));
+
+        System.out.println("get Nth Node iteratively " + linkedList.getNthNodeIteratively(3).data);
+        System.out.println("get Nth Node recursively " + linkedList.getNthNodeRecursively(3).data);
+
+        linkedList.printList();
+        System.out.println("get middle node " + linkedList.getMiddleNode().data);
     }
 
     public void printList() {
@@ -133,6 +157,97 @@ public class LinkedList {
             return;
         }
         node.next = node.next.next;
+    }
+
+    //compute length recursively
+    public int computeLengthRecursively() {
+        Node node = head;
+        return compute(node, 0);
+    }
+
+    private int compute(Node node, int len) {
+        if (node != null) {
+            len = compute(node.next, len + 1);
+        }
+        return len;
+    }
+
+    //compute length iteratively
+    public int computeLengthIteratively() {
+        Node node = head;
+        int counter = 0;
+        while (node != null) {
+            node = node.next;
+            counter++;
+        }
+        return counter;
+    }
+
+    //search for a given node recursively
+    public boolean searchRecursively(Node givenNode) {
+        Node node = head;
+        return searchRecursively(givenNode, node);
+    }
+
+    private boolean searchRecursively(Node givenNode, Node node) {
+        if (node == null) {
+            return false;
+        } else if (node == givenNode) {
+            return true;
+        }
+        return searchRecursively(givenNode, node.next);
+    }
+
+    //search iteratively
+    public boolean searchIteratively(Node givenNode) {
+        Node node = head;
+        while (node != null) {
+            if (node == givenNode)
+                return true;
+
+            node = node.next;
+        }
+        return false;
+    }
+
+    public Node getNthNodeIteratively(int index) {
+        int counter = 0;
+        Node node = head;
+
+        while (node != null) {
+            if (counter == index)
+                return node;
+
+            node = node.next;
+            counter++;
+        }
+        return null;
+    }
+
+    public Node getNthNodeRecursively(int index) {
+        Node node = head;
+        return getNthNodeRecursively(node, index, 0);
+    }
+
+    private Node getNthNodeRecursively(Node node, int index, int counter) {
+        if (node == null) {
+            return null;
+        }
+        if (counter == index) {
+            return node;
+        }
+        return getNthNodeRecursively(node.next, index, counter + 1);
+    }
+
+    public Node getMiddleNode() {
+        Node mainNode = head;
+        Node secondNode = head;
+
+        while (mainNode != null && secondNode != null && secondNode.next != null) {
+            secondNode = secondNode.next.next;
+            mainNode = mainNode.next;
+        }
+        return mainNode;
     }
 
     public int getLength() {
