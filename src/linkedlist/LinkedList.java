@@ -4,15 +4,16 @@ package linkedlist;
 
 public class LinkedList {
     Node head;
+    int length;
 
     public static void main(String[] args) {
         Node node1 = new Node(10);
         Node node2 = new Node(20);
         Node node3 = new Node(30);
         LinkedList linkedList = new LinkedList();
-        linkedList.head = node1;
-        node1.next = node2;
-        node2.next = node3;
+        linkedList.addFront(node1);
+        linkedList.addLast(node2);
+        linkedList.addLast(node3);
         linkedList.printList();
 
         System.out.println("ADD FRONT ");
@@ -38,9 +39,18 @@ public class LinkedList {
         System.out.println("REMOVE NODE 5 ");
         linkedList.delete(node4);
         linkedList.printList();
+
+        System.out.println("REMOVE AT POSITION 3");
+        linkedList.deleteAtPosition(3);
+        linkedList.printList();
+
+        System.out.println("REMOVE AT POSITION 0");
+        linkedList.deleteAtPosition(0);
+        linkedList.printList();
     }
 
     public void printList() {
+        System.out.println("List length " + getLength());
         Node node = head;
         while (node != null) {
             System.out.print(node.data + " => ");
@@ -53,6 +63,7 @@ public class LinkedList {
     public void addFront(Node newNode) {
         newNode.next = head;
         head = newNode;
+        length++;
     }
 
     //2) After a given node.
@@ -61,6 +72,7 @@ public class LinkedList {
         assert givenNode != null;
         newNode.next = givenNode.next;
         givenNode.next = newNode;
+        length++;
 
     }
 
@@ -76,6 +88,7 @@ public class LinkedList {
         }
         node.next = newNode;
         newNode.next = null;
+        length++;
     }
 
     //4. Delete a given node
@@ -85,6 +98,7 @@ public class LinkedList {
         //if head itself the givenNode
         if (head == givenNode) {
             head = head.next;
+            length--;
             return;
         }
 
@@ -94,6 +108,35 @@ public class LinkedList {
 
         assert node != null;
         node.next = givenNode.next;
+        length--;
+    }
+
+    //5. Delete at given position
+    public void deleteAtPosition(int position) {
+        if (position >= this.length)
+            throw new IllegalArgumentException("position index cant be greater than LL length");
+        length--;
+        Node node = head;
+        //if position is 0, then remove head
+        if (position == 0) {
+            head = head.next;
+        }
+
+        int counter = 0;
+        while (counter < position - 1) {
+            counter++;
+            node = node.next;
+        }
+        //corner case - if node.next is null
+        if (node.next != null && node.next.next == null) {
+            node.next = null;
+            return;
+        }
+        node.next = node.next.next;
+    }
+
+    public int getLength() {
+        return this.length;
     }
 
     static class Node {
