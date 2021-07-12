@@ -52,7 +52,19 @@ class LinkedListPalindromeTest {
         ll.addLast(node5);
         ll.addLast(node6);
 
-        llp.reverse(ll.getHead());
+        Assertions.assertFalse(llp.isPalindromeReverse(ll.getHead()));
+    }
 
+    @Test
+    void isPalindrome4() {
+        ll.clear();
+        ll.addLast(node1);
+        ll.addLast(node2);
+        ll.addLast(node3);
+        ll.addLast(node3);
+        ll.addLast(node2);
+        ll.addLast(node1);
+
+        Assertions.assertTrue(llp.isPalindromeReverse(ll.getHead()));
     }
 }

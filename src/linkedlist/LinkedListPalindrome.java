@@ -24,18 +24,38 @@ public class LinkedListPalindrome {
     }
 
     public LinkedList.Node reverse(LinkedList.Node head) {
-        LinkedList.Node current = head;
-        LinkedList.Node previous = null;
-        LinkedList.Node next = null;
+        LinkedList.Node prev = null;
+        LinkedList.Node curr = head;
+        LinkedList.Node next;
 
-        while (current != null) {
-            next = current.next;
-            current.next = previous;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
 
-            previous = current;
-            current = next;
+            prev = curr;
+            curr = next;
         }
-        head = previous;
-        return head;
+
+        LinkedList.Node node = prev;
+        while (node != null) {
+            System.out.print(node.data + "=>");
+            node = node.next;
+        }
+
+        return prev;
+    }
+
+    public boolean isPalindromeReverse(LinkedList.Node head) {
+        LinkedList.Node ascList = head;
+        LinkedList.Node desList = reverse(head);
+
+        while (ascList != null && desList != null) {
+            if (ascList != desList)
+                return false;
+
+            ascList = ascList.next;
+            desList = desList.next;
+        }
+        return true;
     }
 }
