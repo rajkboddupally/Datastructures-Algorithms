@@ -255,6 +255,14 @@ public class LinkedList {
         return this.length;
     }
 
+    public Node getHead() {
+        return head;
+    }
+
+    public void clear() {
+        head = null;
+    }
+
     static class Node {
         int data;
         Node next;
