@@ -22,7 +22,7 @@ public class TotalFiles {
                 count = totalFiles(file, count);
             }
         }
-        if (directory.getName().endsWith(".java")) {
+        if (directory.getName().endsWith(".java") && !directory.getAbsolutePath().contains("test")) {
             System.out.println(directory.getAbsolutePath());
             count++;
         }
