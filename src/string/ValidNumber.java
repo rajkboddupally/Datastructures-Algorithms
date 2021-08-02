@@ -46,21 +46,18 @@ public class ValidNumber {
             char c = sArr[i];
             if (c >= '0' && c <= '9') {
                 numChecked = true;
-                signChecked = false;
             } else if (c == '+' || c == '-') {
-                if (signChecked || (numChecked && !eChecked)) return false;
-                if (i > 0 && !(sArr[i - 1] == 'e' || sArr[i - 1] == 'E')) return false;
+                if (signChecked || (i > 0 && !(sArr[i - 1] == 'e' || sArr[i - 1] == 'E'))) return false;
                 signChecked = true;
                 numChecked = false;
             } else if (c == '.') {
-                if (dotChecked) return false;
+                if (dotChecked || eChecked) return false;
                 dotChecked = true;
-                if (eChecked) return false;
             } else if (c == 'e' || c == 'E') {
-                if (eChecked) return false;
+                if (eChecked || !numChecked) return false;
                 eChecked = true;
-                if (!numChecked) return false;
                 numChecked = false;
+                signChecked = false;
             } else {
                 return false;
             }
