@@ -8,8 +8,7 @@ class BestDealTest {
 
     @Test
     void bestDeal() {
-
-        int[] prices = {1,8,6,2,5,4,88,3,7};
+        int[] prices = {1, 8, 6, 2, 5, 4, 88, 3, 7};
         int output = 87;
         Assertions.assertEquals(output, b.bestDeal(prices));
     }
