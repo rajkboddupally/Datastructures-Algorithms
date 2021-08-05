@@ -1,6 +1,7 @@
 package arrays;
 
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class CreateSortedArraythroughInstructionsTest {
     @Test
     void createSortedArray() {
         int[] inst = {1, 5, 6, 2};
-        Assert.assertEquals(1, c.createSortedArray(inst));
+        Assertions.assertEquals(1, c.createSortedArray(inst));
     }
 
     @Test
