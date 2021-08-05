@@ -1,16 +1,15 @@
 package bt;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MaxDepthTest {
     MaxDepth m;
+
     @BeforeEach
     void setUp() {
-      m= new MaxDepth();
+        m = new MaxDepth();
     }
 
     @Test
@@ -24,7 +23,7 @@ class MaxDepthTest {
         original.right.left = new TreeNode(6);
         original.right.right = new TreeNode(19);
 
-        Assert.assertEquals(3,m.maxDepth(original));
+        Assertions.assertEquals(3, m.maxDepth(original));
 
     }
 }

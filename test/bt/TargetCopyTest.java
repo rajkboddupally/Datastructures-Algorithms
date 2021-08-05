@@ -1,10 +1,8 @@
 package bt;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TargetCopyTest {
 
@@ -38,7 +36,7 @@ class TargetCopyTest {
 
         TreeNode target = new TreeNode(3);
 
-        Assert.assertEquals(3, tree.getTargetCopy(original, clone,target).val);
+        Assertions.assertEquals(3, tree.getTargetCopy(original, clone, target).val);
 
     }
 }
