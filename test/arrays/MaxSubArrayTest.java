@@ -10,7 +10,7 @@ class MaxSubArrayTest {
     void maxSubArray() {
 
         int[] nums = {-2, 1, -3, 4, -1, 6, 3, -5, 4};
-        Assert.assertEquals(6, maxSubArray.maxSubArray(nums));
+        Assert.assertEquals(12, maxSubArray.maxSubArray(nums));
     }
 
     @Test

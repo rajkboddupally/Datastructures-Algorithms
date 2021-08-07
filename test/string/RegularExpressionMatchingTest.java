@@ -65,6 +65,6 @@ class RegularExpressionMatchingTest {
     void isMatch7() {
         String s = "aaa";
         String p = "ab*a*c*a";
-        Assertions.assertTrue(r.isMatch(s, p));
+        Assertions.assertFalse(r.isMatch(s, p));
     }
 }
