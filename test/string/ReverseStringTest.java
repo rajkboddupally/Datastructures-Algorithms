@@ -1,13 +1,12 @@
 package string;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ReverseStringTest {
     ReverseString reverseString;
+
     @BeforeEach
     void setUp() {
         reverseString = new ReverseString();
@@ -15,13 +14,13 @@ class ReverseStringTest {
 
     @Test
     void reverseString() {
-        char[] input = {'h','e','l','l','o'};
-        Assert.assertEquals("olleh",reverseString.reverseString(input).toString());
+        char[] input = {'h', 'e', 'l', 'l', 'o'};
+        Assertions.assertEquals("olleh", reverseString.reverseString(input));
     }
 
     @Test
     void reverseString1() {
-        char[] input = {'H','a','n','n','a','h'};
-        Assert.assertEquals("hannaH",reverseString.reverseString(input).toString());
+        char[] input = {'H', 'a', 'n', 'n', 'a', 'h'};
+        Assertions.assertEquals("hannaH", reverseString.reverseString(input));
     }
 }

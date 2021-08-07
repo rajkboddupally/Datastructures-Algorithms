@@ -1,6 +1,6 @@
 package arrays;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class MergeSortedArrayTest {
 
         int[] output = {1, 2, 2, 3, 5, 6};
 
-        Assert.assertArrayEquals(output, m3.merge(nums1, m, nums2, n));
+        Assertions.assertArrayEquals(output, m3.merge(nums1, m, nums2, n));
     }
 
     @Test
@@ -33,6 +33,6 @@ class MergeSortedArrayTest {
 
         int[] output = {1};
 
-        Assert.assertArrayEquals(output, m3.merge(nums1, m, nums2, n));
+        Assertions.assertArrayEquals(output, m3.merge(nums1, m, nums2, n));
     }
 }
