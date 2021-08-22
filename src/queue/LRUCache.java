@@ -1,10 +1,12 @@
 package queue;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class LRUCache {
     private final Deque<Integer> cacheList;
-    private final Map<Integer, User> cache;
+    private Map<Integer, User> cache;
     private final List<User> userList;
     private final int cacheLimit;
 
@@ -23,6 +25,8 @@ public final class LRUCache {
         userList.add(new User(3, "c"));
         userList.add(new User(4, "d"));
         userList.add(new User(5, "e"));
+        cache = userList.stream().collect(Collectors.toMap(User::getId, Function.identity()));
+        userList.forEach((user -> cacheList.add(user.getId())));
     }
 
     public User get(Integer id) {
@@ -49,14 +53,14 @@ public final class LRUCache {
         return cache.put(id, user);
     }
 
-    public User remove(Integer id) {
+    public void remove(Integer id) {
         cacheList.remove(id);
-        return cache.remove(id);
+        cache.remove(id);
     }
 
     private void updateCache() {
         int cacheSize = cacheList.size();
-        while (cacheSize >= cacheLimit - 1) {
+        while (cacheSize > cacheLimit - 1) {
             int id = cacheList.remove();
             cache.remove(id);
             cacheSize--;

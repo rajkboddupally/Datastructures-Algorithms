@@ -20,14 +20,13 @@ class LRUCacheTest {
 
     @Test
     void getWithDBElement() {
-        Assertions.assertSame(new User(2, "b"), cache.get(2));
+        Assertions.assertEquals(new User(2, "b"), cache.get(2));
     }
 
     @Test
     void addNewUser() {
         User newUser = new User(10, "ten");
         cache.add(newUser);
-        printUsers();
         Assertions.assertEquals(5, cache.cacheSize());
     }
 
@@ -38,7 +37,6 @@ class LRUCacheTest {
     @Test
     void remove() {
         cache.remove(3);
-        printUsers();
         Assertions.assertEquals(4, cache.cacheSize());
     }
 }
