@@ -22,8 +22,13 @@ Backtracking approach
  */
 
 
+import java.util.stream.IntStream;
+
 public class SudokuSolver {
     private static int counter = 0;
+    private static final int MIN_VALUE = 1;
+    private static final int MAX_VALUE = 9;
+    private static final int START_INDEX = 0;
 
     public static void main(String[] args) {
         int[][] board = {
@@ -42,8 +47,8 @@ public class SudokuSolver {
     }
 
     private static void printBoard(int[][] board) {
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
+        for (int row = START_INDEX; row < MAX_VALUE; row++) {
+            for (int col = START_INDEX; col < MAX_VALUE; col++) {
                 System.out.print(board[row][col] + " ");
             }
             System.out.println();
@@ -52,10 +57,10 @@ public class SudokuSolver {
     }
 
     private static boolean solve(int[][] board) {
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
+        for (int row = START_INDEX; row < MAX_VALUE; row++) {
+            for (int col = START_INDEX; col < MAX_VALUE; col++) {
                 if (board[row][col] == 0) {
-                    for (int k = 1; k <= 9; k++) {
+                    for (int k = MIN_VALUE; k <= MAX_VALUE; k++) {
                         board[row][col] = k;
                         if (validate(board, row, col) && solve(board)) {
                             return true;
@@ -80,7 +85,7 @@ public class SudokuSolver {
         int subMatrixColStartIndex = (col / 3) * 3;
         int subMatrixColEndIndex = subMatrixColStartIndex + 3;
 
-        boolean[] checkMatrix = new boolean[9];
+        boolean[] checkMatrix = new boolean[MAX_VALUE];
 
         for (int i = subMatrixRowStartIndex; i < subMatrixRowEndIndex; i++) {
             for (int j = subMatrixColStartIndex; j < subMatrixColEndIndex; j++) {
@@ -92,31 +97,21 @@ public class SudokuSolver {
     }
 
     private static boolean colValidate(int[][] board, int col) {
-        boolean[] isValidRow = new boolean[9];
-        for (int row = 0; row < 9; row++) {
-            if (!checkValid(board, row, col, isValidRow)) {
-                return false;
-            }
-        }
-        return true;
+        boolean[] isInvalidRow = new boolean[MAX_VALUE];
+        return IntStream.range(START_INDEX, MAX_VALUE).allMatch((row) -> checkValid(board, row, col, isInvalidRow));
     }
 
     private static boolean rowValidate(int[][] board, int row) {
-        boolean[] isValidRow = new boolean[9];
-        for (int col = 0; col < 9; col++) {
-            if (!checkValid(board, row, col, isValidRow)) {
-                return false;
-            }
-        }
-        return true;
+        boolean[] isInvalidRow = new boolean[MAX_VALUE];
+        return IntStream.range(START_INDEX, MAX_VALUE).allMatch((col) -> checkValid(board, row, col, isInvalidRow));
     }
 
-    private static boolean checkValid(int[][] board, int row, int col, boolean[] isValidRow) {
+    private static boolean checkValid(int[][] board, int row, int col, boolean[] isInvalidRow) {
         if (board[row][col] != 0) {
-            if (!isValidRow[board[row][col] - 1])
-                isValidRow[board[row][col] - 1] = true;
-            else
+            if (isInvalidRow[board[row][col] - 1])
                 return false;
+            else
+                isInvalidRow[board[row][col] - 1] = true;
         }
         return true;
     }
