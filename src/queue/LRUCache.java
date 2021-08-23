@@ -54,8 +54,9 @@ public final class LRUCache {
     }
 
     public void remove(Integer id) {
+        if (cache.remove(id) == null)
+            throw new NoSuchElementException("User do not exist to remove");
         cacheList.remove(id);
-        cache.remove(id);
     }
 
     private void updateCache() {
@@ -79,18 +80,10 @@ public final class LRUCache {
 
 class User {
     private final Integer id;
-    private String name;
+    private final String name;
 
     public User(Integer id, String name) {
         this.id = id;
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 

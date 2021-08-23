@@ -1,18 +1,13 @@
 package queue;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
 class LRUCacheTest {
     LRUCache cache = new LRUCache(5);
-
-    @BeforeEach
-    void setUp() {
-    }
-
+    
     @Test
     void getWithNoElement() {
         Assertions.assertThrows(NoSuchElementException.class, () -> cache.get(999));
