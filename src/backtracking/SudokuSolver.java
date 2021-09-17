@@ -25,10 +25,12 @@ Backtracking approach
 import java.util.stream.IntStream;
 
 public class SudokuSolver {
-    private static int counter = 0;
+    private static final int counter = 0;
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 9;
     private static final int START_INDEX = 0;
+    private static final int SIZE = 9;
+    private static final int EMPTY_VALUE = 0;
 
     public static void main(String[] args) {
         int[][] board = {
@@ -57,16 +59,16 @@ public class SudokuSolver {
     }
 
     private static boolean solve(int[][] board) {
-        for (int row = START_INDEX; row < MAX_VALUE; row++) {
-            for (int col = START_INDEX; col < MAX_VALUE; col++) {
-                if (board[row][col] == 0) {
-                    for (int k = MIN_VALUE; k <= MAX_VALUE; k++) {
-                        board[row][col] = k;
+        for (int row = START_INDEX; row < SIZE; row++) {
+            for (int col = START_INDEX; col < SIZE; col++) {
+                if (board[row][col] == EMPTY_VALUE) {
+                    for (int val = MIN_VALUE; val <= MAX_VALUE; val++) {
+                        board[row][col] = val;
+                        System.out.println("ROW-" + row + " COL-" + col + " board[row][col]-" + val);
                         if (validate(board, row, col) && solve(board)) {
                             return true;
                         }
-                        board[row][col] = 0;
-                        counter++;
+                        board[row][col] = EMPTY_VALUE;
                     }
                     return false;
                 }
@@ -85,11 +87,11 @@ public class SudokuSolver {
         int subMatrixColStartIndex = (col / 3) * 3;
         int subMatrixColEndIndex = subMatrixColStartIndex + 3;
 
-        boolean[] checkMatrix = new boolean[MAX_VALUE];
+        boolean[] invalidSubMatrix = new boolean[MAX_VALUE];
 
         for (int i = subMatrixRowStartIndex; i < subMatrixRowEndIndex; i++) {
             for (int j = subMatrixColStartIndex; j < subMatrixColEndIndex; j++) {
-                if (!checkValid(board, i, j, checkMatrix))
+                if (!checkValid(board, i, j, invalidSubMatrix))
                     return false;
             }
         }
@@ -97,22 +99,21 @@ public class SudokuSolver {
     }
 
     private static boolean colValidate(int[][] board, int col) {
-        boolean[] isInvalidRow = new boolean[MAX_VALUE];
-        return IntStream.range(START_INDEX, MAX_VALUE).allMatch((row) -> checkValid(board, row, col, isInvalidRow));
+        boolean[] isValidRow = new boolean[MAX_VALUE];
+        return IntStream.range(START_INDEX, MAX_VALUE).allMatch((row) -> checkValid(board, row, col, isValidRow));
     }
 
     private static boolean rowValidate(int[][] board, int row) {
-        boolean[] isInvalidRow = new boolean[MAX_VALUE];
-        return IntStream.range(START_INDEX, MAX_VALUE).allMatch((col) -> checkValid(board, row, col, isInvalidRow));
+        boolean[] isValidRow = new boolean[MAX_VALUE];
+        return IntStream.range(START_INDEX, SIZE).allMatch((col) -> checkValid(board, row, col, isValidRow));
     }
 
-    private static boolean checkValid(int[][] board, int row, int col, boolean[] isInvalidRow) {
-        if (board[row][col] != 0) {
-            if (isInvalidRow[board[row][col] - 1])
-                return false;
-            else
-                isInvalidRow[board[row][col] - 1] = true;
+    private static boolean checkValid(int[][] board, int row, int col, boolean[] isValid) {
+        if (board[row][col] == EMPTY_VALUE) return true;
+        if (isValid[board[row][col] - 1]) {
+            return false;
         }
+        isValid[board[row][col] - 1] = true;
         return true;
     }
 }
