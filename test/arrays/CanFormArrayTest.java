@@ -71,5 +71,11 @@ public class CanFormArrayTest {
         Assertions.assertFalse(canFormArray.canFormArray(arr, pieces));
     }
 
+    @Test
+    public void testAdd8() {
+        int[] arr = {97,80,56,85,60,33,26,23,99,98,19,34,30,66};
+        int[][] pieces = {{98,19},{23,99},{97,80,56,85,60},{33,26},{34},{30,66}};
+        Assertions.assertTrue(canFormArray.canFormArray(arr, pieces));
+    }
 
 }

@@ -29,39 +29,29 @@ Constraints:
  */
 public class BestTimetoBuyandSellStock {
 
-    public static void main(String[] args) {
-        int[] prices = {2, 1, 4};
-        System.out.println(maxProfit(prices));
-    }
-
-    public static int maxProfit(int[] prices) {
-        int maxProfit = 0;
-        int minPrice = Integer.MAX_VALUE;
-
+    public int bestDeal(int[] prices) {
+        int bestDeal = Integer.MIN_VALUE;
         for (int i = 0; i < prices.length; i++) {
-            if (prices[i] < minPrice) {
-                minPrice = prices[i];
-            } else if (prices[i] - minPrice > maxProfit) {
-                maxProfit = Math.max(maxProfit, prices[i] - minPrice);
-            }
-        }
-
-        return maxProfit;
-    }
-
-    public int maxProfit_V0(int[] prices) {
-
-        int maxProfit = 0;
-
-        for (int i = 0; i < prices.length - 1; i++) {
-
             for (int j = i + 1; j < prices.length; j++) {
-                maxProfit = Math.max(maxProfit, prices[j] - prices[i]);
+                bestDeal = Math.max(bestDeal, prices[j] - prices[i]);
             }
-
         }
-
-        return maxProfit;
+        return bestDeal;
     }
 
+    public static void main(String[] args) {
+        BestTimetoBuyandSellStock bestdeal = new BestTimetoBuyandSellStock();
+        int[] arr = {4, 2, 1, 0};
+        System.out.println(bestdeal.bestDeal_Optimized(arr));
+    }
+
+    public int bestDeal_Optimized(int[] prices) {
+        int bestDeal = Integer.MIN_VALUE;
+        int minBuy = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            minBuy = Math.min(minBuy, prices[i]);
+            bestDeal = Math.max(bestDeal, prices[i] - minBuy);
+        }
+        return bestDeal;
+    }
 }
