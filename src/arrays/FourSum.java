@@ -52,7 +52,7 @@ public class FourSum {
         return output;
     }
 
-    public List<List<Integer>> fourSum(int[] nums, int target) {
+    public List<List<Integer>> fourSum_v2(int[] nums, int target) {
         List<List<Integer>> output = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 3; i++) {
@@ -80,6 +80,46 @@ public class FourSum {
                 }
             }
         }
+        return output;
+    }
+
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> output = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        if(nums.length < 4) {
+            return output;
+        }
+        if(nums.length == 4) {
+            if(nums[0] + nums[1] + nums[2] + nums[3] == target){
+                list.add(nums[0]);
+                list.add(nums[1]);
+                list.add(nums[2]);
+                list.add(nums[3]);
+                output.add(list);
+            }
+            return output;
+        }
+        Arrays.sort(nums);
+        int start =0, end = nums.length-1;
+        int index = 2;
+
+        while(start < end){
+            while(index < end){
+                if(nums[start] + nums[end] +nums[index] +nums[index -1] == target){
+                    list.add(nums[start]);
+                    list.add(nums[end]);
+                    list.add(nums[index]);
+                    list.add(nums[index-1]);
+                    output.add(list);
+                    list.clear();
+                }
+                index ++;
+            }
+            start++;
+            end--;
+            index = start + 2;
+        }
+
         return output;
     }
 }

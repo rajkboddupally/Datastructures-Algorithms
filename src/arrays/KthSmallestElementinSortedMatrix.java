@@ -34,13 +34,13 @@ All the rows and columns of matrix are guaranteed to be sorted in non-decreasing
 public class KthSmallestElementinSortedMatrix {
     public static void main(String[] args) {
         KthSmallestElementinSortedMatrix obj = new KthSmallestElementinSortedMatrix();
-        //int[][] testArr = {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
-        int[][] testArr = {{1, 2}, {1, 3}};
-        System.out.println(obj.kthSmallest(testArr, 2));
+        int[][] testArr = {{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
+        //int[][] testArr = {{1, 2}, {1, 3}};
+        System.out.println(obj.kthSmallest(testArr, 8));
 
     }
 
-    public int kthSmallest(int[][] matrix, int k) {
+    public int kthSmallest_v1(int[][] matrix, int k) {
         List<Integer> flatArrList = new ArrayList<>();
         for (int[] row : matrix) {
             for (int col : row) {
@@ -49,5 +49,16 @@ public class KthSmallestElementinSortedMatrix {
         }
         Collections.sort(flatArrList);
         return flatArrList.get(k - 1);
+    }
+
+    public int kthSmallest(int[][] matrix, int k) {
+        int[] output = new int[matrix.length * matrix[0].length];
+        int counter = 0;
+        for (int[] ints : matrix) {
+            for (int column = 0; column < matrix[0].length; column++) {
+                output[counter++] = ints[column];
+            }
+        }
+        return output[k-1];
     }
 }
