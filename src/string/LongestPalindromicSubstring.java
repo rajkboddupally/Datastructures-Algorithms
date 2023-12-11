@@ -1,5 +1,9 @@
 package string;
 
+import edu.princeton.cs.algs4.In;
+
+import java.util.*;
+
 public class LongestPalindromicSubstring {
     /*
     public String longestPalindrome_V0(String s) {
@@ -42,7 +46,7 @@ public class LongestPalindromicSubstring {
     */
 
 
-    public String longestPalindrome(String s) {
+    public String longestPalindrome_v2(String s) {
 
         String sub = "";
         String longestPalindrome = "";
@@ -77,4 +81,51 @@ public class LongestPalindromicSubstring {
         }
         return longestPalindrome;
     }
+
+    public static int longestPalindrome_v3(String s) {
+        Set<Character> charSet = new HashSet<>();
+        int counter = 0;
+
+        for (char c : s.toCharArray()) {
+            if (!charSet.add(c)) {
+                charSet.remove(c);
+                counter += 2;
+            }
+        }
+
+        if (!charSet.isEmpty())
+            counter++;
+
+        return counter;
+    }
+
+    public static int longestPalindrome(String s) {
+        int[] charArray = new int[256];
+        int counter = 0;
+
+        for (char c : s.toCharArray()) {
+            if (charArray[c] == 1) {
+                charArray[c] = 0;
+                counter += 2;
+            } else {
+                charArray[c] = 1;
+            }
+        }
+
+        for (char c : s.toCharArray()) {
+            if (charArray[c] == 1) {
+                counter++;
+                break;
+            }
+        }
+
+        return counter;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(longestPalindrome("abccccdd"));
+        System.out.println(longestPalindrome("a"));
+        System.out.println(longestPalindrome("ccc"));
+    }
+
 }
