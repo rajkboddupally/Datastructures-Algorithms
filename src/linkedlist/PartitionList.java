@@ -28,7 +28,7 @@ The number of nodes in the list is in the range [0, 200].
 
  */
 public class PartitionList {
-    public ListNode partition(ListNode head, int x) {
+    public ListNode partition_v0(ListNode head, int x) {
         if (head == null)
             return null;
         if (head.next == null)
@@ -69,5 +69,56 @@ public class PartitionList {
             node1 = node1.next;
         }
         return head;
+    }
+
+    public ListNode partition(ListNode head, int x) {
+        // find first node which >= x
+        //find element before first node which is >= x
+        //iterate through list when element < x appear, then before node.next p element, element.next = first node.
+        ListNode firstNodeGreaterThanx = null;
+        ListNode lastNodeLessThanX = null;
+        ListNode curr = head;
+        ListNode prev = null;
+        while(curr != null){
+            if(curr.val >= x){
+                firstNodeGreaterThanx = curr;
+                lastNodeLessThanX = prev;
+                break;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+
+        int indexOfX=1;
+        curr = head;
+        while(curr != null && curr.val != x){
+            indexOfX++;
+            curr = curr.next;
+        }
+        curr = head;
+        int counter=1;
+        ListNode temp = null;
+        while(curr != null){
+            if(curr.val < x && counter > indexOfX){
+                temp = curr.next;
+                if(lastNodeLessThanX !=null)
+                    lastNodeLessThanX.next = curr;
+                curr.next = firstNodeGreaterThanx;
+                lastNodeLessThanX = curr;
+                curr = temp;
+            }else{
+                curr = curr.next;
+            }
+            counter++;
+        }
+
+        return head;
+    }
+
+    void print(ListNode node){
+        while(node!=null){
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
     }
 }

@@ -16,6 +16,7 @@ class PartitionListTest {
         head.next.next.next.next = new ListNode(5);
         head.next.next.next.next.next = new ListNode(2);
         p.partition(head, 3);
+        p.print(head);
     }
 
     @Test

@@ -27,7 +27,35 @@ The number of nodes in the list is in the range [0, 500].
  */
 
 public class RotateLinkedList {
+
     public ListNode rotateRight(ListNode head, int k) {
+
+        if(k == 0) return head;
+        int counter = 1;
+        ListNode firstPointer = head;
+        ListNode secondPointer = head;
+        ListNode previous = null;
+
+        while(firstPointer != null){
+            if(counter > k) {
+                previous = secondPointer;
+                secondPointer = secondPointer.next;
+            }
+            firstPointer = firstPointer.next;
+            counter++;
+        }
+        ListNode newHead = secondPointer;
+        previous.next = null;
+
+        while(secondPointer.next != null){
+            secondPointer = secondPointer.next;
+        }
+        secondPointer.next = head;
+        head = newHead;
+        return head;
+    }
+
+    public ListNode rotateRight_V0(ListNode head, int k) {
 
         if (head == null)
             return null;
