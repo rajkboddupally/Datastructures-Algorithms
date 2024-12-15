@@ -105,7 +105,6 @@ public class MaximumAveragePassRatio {
         }
         while(extraStudents-- >0){
             double[] top = queue.poll();
-            double gain = top[0];
             int p = (int)top[1], t=(int)top[2];
             queue.add(new double[]{gain(p+1,t+1), p+1, t+1});
         }
