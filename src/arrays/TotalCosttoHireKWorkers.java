@@ -1,5 +1,7 @@
 package arrays;
 
+import java.util.PriorityQueue;
+
 /*
 https://leetcode.com/problems/total-cost-to-hire-k-workers/
 
@@ -8,7 +10,7 @@ Raj Kumar Boddupally created on 03/01/2025 inside the package - arrays
  */
 public class TotalCosttoHireKWorkers {
 
-  // This solution does not work for larger inputs. Time limit exceeds. Use PriorityQueue to store next cheap labor
+    // This solution does not work for larger inputs. Time limit exceeds. Use PriorityQueue to store next cheap labor
 
     /* Approach
     1. Iterate k to 0
@@ -74,8 +76,30 @@ public class TotalCosttoHireKWorkers {
             4. Compare pq1 peek vs pq2 peek.  Add the lowest to totalCost.
      */
     public long totalCost(int[] costs, int k, int candidates) {
+        int totalCost = 0, i = 0, j = costs.length - 1;
+        PriorityQueue<Integer> pq1 = new PriorityQueue<>();
+        PriorityQueue<Integer> pq2 = new PriorityQueue<>();
 
+        while (k-- > 0) {
 
-        return 0;
+            while (pq1.size() < candidates && i <= j)
+                pq1.add(costs[i++]);
+
+            while (pq2.size() < candidates && i <= j)
+                pq2.add(costs[j--]);
+
+            int leftMin = !pq1.isEmpty() ? pq1.peek() : Integer.MAX_VALUE;
+            int rightMin = !pq2.isEmpty() ? pq2.peek() : Integer.MAX_VALUE;
+
+            if(leftMin <= rightMin){
+                totalCost += leftMin;
+                pq1.poll();
+            }else{
+                totalCost += rightMin;
+                pq2.poll();
+            }
+        }
+
+        return totalCost;
     }
 }
