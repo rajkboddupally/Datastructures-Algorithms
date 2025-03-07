@@ -1,19 +1,44 @@
 package bt;
 
-public class MaxDepth {
-    TreeNode root;
-    //[7,4,3,null,null,6,19]
-    public int maxDepth(TreeNode root) {
-        if(root == null){
-            return 0;
-        }
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
-        int lHeight = maxDepth(root.left);
-        int rHeight= maxDepth(root.right);
-        System.out.println("height of the node "+ root.val + " lHeight:"+lHeight + "  rHeight:"+rHeight);
-        if(lHeight > rHeight)
-            return  lHeight+1;
-        else
-            return rHeight+1;
+public class MaxDepth {
+    Node root;
+
+    /*
+    Approach
+    1. Add root & null to QUEUE
+    2. Iterate QUEUE
+    3. POP element
+        If it is null , increment counter. If QUEUE is not empty add null.
+        else ADD LEFT and RIGHT trees to the QUEUE.
+     */
+    public int maxDepthUsingNullPointer(Node root) {
+
+        if (root == null) return -1;
+
+        int maxDepth = 0;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+
+            if (node == null) {
+                maxDepth++;
+                if (!queue.isEmpty()) {
+                    queue.add(null);
+                }
+            } else {
+                if (node.left != null) queue.add(node.left);
+                if (node.right != null) queue.add(node.right);
+            }
+        }
+        return maxDepth - 1;
     }
+
+
 }
