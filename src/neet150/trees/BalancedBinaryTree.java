@@ -17,6 +17,6 @@ public class BalancedBinaryTree {
         if (Math.abs(left - right) > 1) {
             return -1;
         }
-        return math.max(left, right) + 1;
+        return Math.max(left, right) + 1;
     }
 }
